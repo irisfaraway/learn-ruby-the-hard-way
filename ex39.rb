@@ -1,3 +1,8 @@
+# refactoring that damn line so I don't have the same code 21083 times
+def dividing_line
+  puts '-' * 10
+end
+
 # create a mapping of state to abbreviation
 states = {
   'Oregon' => 'OR',
@@ -19,46 +24,44 @@ cities['NY'] = 'New York'
 cities['OR'] = 'Portland'
 
 # puts out some cities
-puts '-' * 10
+dividing_line
 puts "NY State has: #{cities['NY']}"
 puts "OR State has: #{cities['OR']}"
 
 # puts some states
-puts '-' * 10
+dividing_line
 puts "Michigan's abbreviation is: #{states['Michigan']}"
 puts "Florida's abbreviation is: #{states['Florida']}"
 
 # do it by using the state then cities dict
-puts '-' * 10
+dividing_line
 puts "Michigan has: #{cities[states['Michigan']]}"
 puts "Florida has: #{cities[states['Florida']]}"
 
 # puts every state abbreviation
-puts '-' * 10
+dividing_line
 states.each do |state, abbrev|
   puts "#{state} is abbreviated #{abbrev}"
 end
 
 # puts every city in state
-puts '-' * 10
+dividing_line
 cities.each do |abbrev, city|
   puts "#{abbrev} has the city #{city}"
 end
 
 # now do both at the same time
-puts '-' * 10
+dividing_line
 states.each do |state, abbrev|
   city = cities[abbrev]
   puts "#{state} is abbreviated #{abbrev} and has city #{city}"
 end
 
-puts '-' * 10
+dividing_line
 # by default ruby says 'nil' when something isn't there
 state = states['Texas']
 
-if !state
-  puts 'Sorry, no Texas.'
-end
+puts 'Sorry, no Texas.' unless state
 
 # default values using ||= with the nil result
 city = cities['TX']
