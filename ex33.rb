@@ -1,4 +1,4 @@
-def do_number_stuff(top)
+def do_number_stuff(top, interval)
   i = 0
   numbers = []
 
@@ -6,7 +6,7 @@ def do_number_stuff(top)
     puts "At the top i is #{i}"
     numbers.push(i)
 
-    i += 1
+    i += interval
     puts 'numbers now: ', numbers
     puts "At the bottom i is #{i}"
   end
@@ -17,5 +17,11 @@ def do_number_stuff(top)
   numbers.each { |num| puts num }
 end
 
+# awful copy ahoy!
 print 'How high do you want to count? '
-do_number_stuff(gets.chomp.to_i)
+top = gets.chomp.to_i
+
+print 'And what interval do you want to count by? '
+interval = gets.chomp.to_i
+
+do_number_stuff(top, interval)
