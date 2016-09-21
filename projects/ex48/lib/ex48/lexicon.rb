@@ -35,6 +35,9 @@ class Lexicon
     all_the_words = phrase.split(' ')
 
     all_the_words.each do |word|
+      # lowercase the word for consistency
+      word = word.downcase
+
       # check what type of word the thing is
       token = dictionary[word]
 

@@ -42,10 +42,14 @@ class TestLexicon < Test::Unit::TestCase
   end
 
   def test_errors
-    assert_equal(Lexicon.scan('ASDFASDFASDF'), [['error', 'ASDFASDFASDF']])
-    result = Lexicon.scan('bear IAS princess')
+    assert_equal(Lexicon.scan('kdajsfhasdkfs'), [['error', 'kdajsfhasdkfs']])
+    result = Lexicon.scan('bear ias princess')
     assert_equal(result, [['noun', 'bear'],
-                          ['error', 'IAS'],
+                          ['error', 'ias'],
                           ['noun', 'princess']])
+  end
+
+  def test_capitalisation
+    assert_equal(Lexicon.scan('Bear'), [['noun', 'bear']])
   end
 end
