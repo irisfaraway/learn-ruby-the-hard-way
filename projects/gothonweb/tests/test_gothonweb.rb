@@ -10,21 +10,15 @@ class MyAppTest < Test::Unit::TestCase
     Sinatra::Application
   end
 
-  def test_my_default
-    get '/'
-    assert_equal 'Hello world', last_response.body
-  end
-
-  def test_hello_form
-    get '/hello/'
+  def test_game_form
+    get '/game'
     assert last_response.ok?
-    assert last_response.body.include?('Greeting')
+    assert last_response.body.include?('You died!')
   end
 
   def test_hello_form_post
-    post '/hello/', params = { name: 'Frank',
-                               greeting: 'hi' }
+    post '/game', params = { action: 'whatever' }
     assert last_response.ok?
-    assert last_response.body.include?('I just wanted to say')
+    assert last_response.body.include?('You died!')
   end
 end

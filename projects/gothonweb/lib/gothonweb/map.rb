@@ -38,9 +38,9 @@ module Map
                               Armory and about to pull a weapon to blast you.
                               """)
 
-  SHOOT_DEATH = Room.new('Shoot Death', 'You shoot and miss. He shoots you and you die.')
+  SHOOT_DEATH = Room.new('Death', 'You shoot and miss. He shoots you and you die.')
 
-  DODGE_DEATH = Room.new('Dodge Death', 'You try to dodge. He shoots you and you die.')
+  DODGE_DEATH = Room.new('Death', 'You try to dodge. He shoots you and you die.')
 
   LASER_WEAPON_ARMORY = Room.new('Laser Weapon Armory',
                                  """
@@ -60,7 +60,7 @@ module Map
                                  get the bomb.  The code is 3 digits.
                                  """)
 
-  ARMORY_DEATH = Room.new('Armory Death', 'Locked out! Gothons find you and kill you.')
+  ARMORY_DEATH = Room.new('Death', 'Locked out! Gothons find you and kill you.')
 
   THE_BRIDGE = Room.new('The Bridge',
                         """
@@ -76,7 +76,7 @@ module Map
                         arm and don't want to set it off.
                         """)
 
-  BOMB_DEATH = Room.new('Bomb Death', 'The bomb explodes! You die.')
+  BOMB_DEATH = Room.new('Death', 'The bomb explodes! You die.')
 
   ESCAPE_POD = Room.new('Escape Pod',
                         """
@@ -116,7 +116,7 @@ module Map
                            into jam jelly.
                            """)
 
-  GENERIC_DEATH = Room.new('death', 'You died.')
+  GENERIC_DEATH = Room.new('Death', 'You died.')
 
   # set the start
   START = CENTRAL_CORRIDOR
@@ -151,7 +151,7 @@ module Map
                  'START' => START }
 
   def self::load_room(session)
-    # given a session, thsi will return the right room or nil
+    # given a session, this will return the right room or nil
     return ROOM_NAMES[session[:room]]
   end
 
