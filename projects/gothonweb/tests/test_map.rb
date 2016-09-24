@@ -36,29 +36,41 @@ class TestMap < Test::Unit::TestCase
   end
 
   def test_gothon_game_map
-    assert_equal(Map::GENERIC_DEATH, Map::START.go('shoot!'))
-    assert_equal(Map::GENERIC_DEATH, Map::START.go('dodge!'))
+    # test it starts in the right place
+    assert_equal(Map::START, Map::CENTRAL_CORRIDOR)
 
-    room = Map::START.go('tell a joke')
-    assert_equal(Map::LASER_WEAPON_ARMORY, room)
+    # tests for corridor
+    assert_equal(Map::SHOOT_DEATH, Map::CENTRAL_CORRIDOR.go('shoot!'))
+    assert_equal(Map::DODGE_DEATH, Map::CENTRAL_CORRIDOR.go('dodge!'))
+    assert_equal(Map::LASER_WEAPON_ARMORY, Map::CENTRAL_CORRIDOR.go('tell a joke'))
 
-    # complete this test by making it play the game
+    # tests for laser weapon armory
+    assert_equal(Map::ARMORY_DEATH, Map::LASER_WEAPON_ARMORY.go('*'))
+    assert_equal(Map::THE_BRIDGE, Map::LASER_WEAPON_ARMORY.go('0132'))
+
+    # tests for the bridge
+    assert_equal(Map::BOMB_DEATH, Map::THE_BRIDGE.go('throw the bomb'))
+    assert_equal(Map::ESCAPE_POD, Map::THE_BRIDGE.go('slowly place the bomb'))
+
+    # tests for escape pod
+    assert_equal(Map::THE_END_LOSER, Map::ESCAPE_POD.go('*'))
+    assert_equal(Map::THE_END_WINNER, Map::ESCAPE_POD.go('2'))
   end
 
   def test_session_loading
     session = {}
 
-    room = Map::load_room(session)
+    room = Map.load_room(session)
     assert_equal(room, nil)
 
-    Map::save_room(session, Map::START)
-    room = Map::load_room(session)
+    Map.save_room(session, Map::START)
+    room = Map.load_room(session)
     assert_equal(room, Map::START)
 
     room = room.go('tell a joke')
     assert_equal(room, Map::LASER_WEAPON_ARMORY)
 
-    Map::save_room(session, room)
+    Map.save_room(session, room)
     assert_equal(room, Map::LASER_WEAPON_ARMORY)
   end
 end

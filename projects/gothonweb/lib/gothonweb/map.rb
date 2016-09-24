@@ -27,16 +27,20 @@ module Map
   CENTRAL_CORRIDOR = Room.new('Central Corridor',
                               """
                               The Gothons of Planet Percal #25 have invaded your ship and destroyed
-                              your entire crew.  You are the last surviving member and your last
+                              your entire crew. You are the last surviving member and your last
                               mission is to get the neutron destruct bomb from the Weapons Armory,
                               put it in the bridge, and blow the ship up after getting into an 
                               escape pod.
 
                               You're running down the central corridor to the Weapons Armory when
                               a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume
-                              flowing around his hate filled body.  He's blocking the door to the
+                              flowing around his hate filled body. He's blocking the door to the
                               Armory and about to pull a weapon to blast you.
                               """)
+
+  SHOOT_DEATH = Room.new('Shoot Death', 'You shoot and miss. He shoots you and you die.')
+
+  DODGE_DEATH = Room.new('Dodge Death', 'You try to dodge. He shoots you and you die.')
 
   LASER_WEAPON_ARMORY = Room.new('Laser Weapon Armory',
                                  """
@@ -51,10 +55,12 @@ module Map
                                  for more Gothons that might be hiding.  It's dead quiet, too quiet.
                                  You stand up and run to the far side of the room and find the
                                  neutron bomb in its container.  There's a keypad lock on the box
-                                 and you need the code to get the bomb out.  If you get the code
+                                 and you need the code to get the bomb out. If you get the code
                                  wrong 10 times then the lock closes forever and you can't
                                  get the bomb.  The code is 3 digits.
                                  """)
+
+  ARMORY_DEATH = Room.new('Armory Death', 'Locked out! Gothons find you and kill you.')
 
   THE_BRIDGE = Room.new('The Bridge',
                         """
@@ -64,11 +70,13 @@ module Map
 
                         You burst onto the Bridge with the netron destruct bomb
                         under your arm and surprise 5 Gothons who are trying to
-                        take control of the ship.  Each of them has an even uglier
-                        clown costume than the last.  They haven't pulled their
+                        take control of the ship. Each of them has an even uglier
+                        clown costume than the last. They haven't pulled their
                         weapons out yet, as they see the active bomb under your
                         arm and don't want to set it off.
                         """)
+
+  BOMB_DEATH = Room.new('Bomb Death', 'The bomb explodes! You die.')
 
   ESCAPE_POD = Room.new('Escape Pod',
                         """
@@ -110,21 +118,22 @@ module Map
 
   GENERIC_DEATH = Room.new('death', 'You died.')
 
+  # set the start
+  START = CENTRAL_CORRIDOR
+
   # set up paths between rooms
-  ESCAPE_POD.add_paths('2' => THE_END_WINNER,
-                       '*' => THE_END_LOSER)
-
-  THE_BRIDGE.add_paths('throw the bomb' => GENERIC_DEATH,
-                       'slowly place the bomb' => ESCAPE_POD)
-
-  LASER_WEAPON_ARMORY.add_paths('0132' => THE_BRIDGE,
-                                '*' => GENERIC_DEATH)
-
-  CENTRAL_CORRIDOR.add_paths('shoot!' => GENERIC_DEATH,
-                             'dodge!' => GENERIC_DEATH,
+  CENTRAL_CORRIDOR.add_paths('shoot!' => SHOOT_DEATH,
+                             'dodge!' => DODGE_DEATH,
                              'tell a joke' => LASER_WEAPON_ARMORY)
 
-  START = CENTRAL_CORRIDOR
+  LASER_WEAPON_ARMORY.add_paths('0132' => THE_BRIDGE,
+                                '*' => ARMORY_DEATH)
+
+  THE_BRIDGE.add_paths('throw the bomb' => BOMB_DEATH,
+                       'slowly place the bomb' => ESCAPE_POD)
+
+  ESCAPE_POD.add_paths('2' => THE_END_WINNER,
+                       '*' => THE_END_LOSER)
 
   # set up room names
 
